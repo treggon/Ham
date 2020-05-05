@@ -1,13 +1,14 @@
-﻿using Ham.Lib.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Ham.Models
+namespace Ham.Lib.Models
 {
     public class Contact
     {
         [Key]
         public int ID { get; set; }
         public string   Name { get; set; }
+
+        [Display(Name = "Call Sign")]
         public int? CallSignID { get; set; }
         public virtual CallSign CallSign { get; set; }
 

@@ -14,21 +14,21 @@ using Ham.Lib.Models;
 
 namespace HamAPI.Controllers
 {
-    public class QSOesController : ApiController
+    public class QSOsController : ApiController
     {
         private HamContext db = new HamContext();
 
-        // GET: api/QSOes
-        public IQueryable<QSO> GetQSOes()
+        // GET: api/QSOs
+        public IQueryable<QSO> GetQSOs()
         {
-            return db.QSOes;
+            return db.QSOs;
         }
 
-        // GET: api/QSOes/5
+        // GET: api/QSOs/5
         [ResponseType(typeof(QSO))]
         public async Task<IHttpActionResult> GetQSO(int id)
         {
-            QSO qSO = await db.QSOes.FindAsync(id);
+            QSO qSO = await db.QSOs.FindAsync(id);
             if (qSO == null)
             {
                 return NotFound();
@@ -37,7 +37,7 @@ namespace HamAPI.Controllers
             return Ok(qSO);
         }
 
-        // PUT: api/QSOes/5
+        // PUT: api/QSOs/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutQSO(int id, QSO qSO)
         {
@@ -72,7 +72,7 @@ namespace HamAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/QSOes
+        // POST: api/QSOs
         [ResponseType(typeof(QSO))]
         public async Task<IHttpActionResult> PostQSO(QSO qSO)
         {
@@ -81,23 +81,23 @@ namespace HamAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.QSOes.Add(qSO);
+            db.QSOs.Add(qSO);
             await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = qSO.ID }, qSO);
         }
 
-        // DELETE: api/QSOes/5
+        // DELETE: api/QSOs/5
         [ResponseType(typeof(QSO))]
         public async Task<IHttpActionResult> DeleteQSO(int id)
         {
-            QSO qSO = await db.QSOes.FindAsync(id);
+            QSO qSO = await db.QSOs.FindAsync(id);
             if (qSO == null)
             {
                 return NotFound();
             }
 
-            db.QSOes.Remove(qSO);
+            db.QSOs.Remove(qSO);
             await db.SaveChangesAsync();
 
             return Ok(qSO);
@@ -114,7 +114,7 @@ namespace HamAPI.Controllers
 
         private bool QSOExists(int id)
         {
-            return db.QSOes.Count(e => e.ID == id) > 0;
+            return db.QSOs.Count(e => e.ID == id) > 0;
         }
     }
 }

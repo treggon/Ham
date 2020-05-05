@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Ham.DAL;
-using Ham.Models;
+using Ham.Lib.Models;
 
 namespace Ham.Controllers
 {

@@ -1,5 +1,4 @@
 ﻿using Ham.Lib.Models;
-using Ham.Models;
 using System.Data.Entity;
 
 namespace Ham.DAL
@@ -15,9 +14,7 @@ namespace Ham.DAL
         public DbSet<CallSign> CallSigns { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Frequency> Frequencies { get; set; }
-
-        public DbSet<QSO> QSOes { get; set; }
+        public DbSet<QSO> QSOs { get; set; }
     }
 }

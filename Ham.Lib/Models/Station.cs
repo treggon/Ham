@@ -9,6 +9,7 @@ namespace Ham.Lib.Models
         public string Note { get; set; }
         public string Power { get; set; }
 
+        [Display(Name = "Call Sign")]
         public int? CallSignID { get; set; }
         public virtual CallSign CallSign { get; set; }
 

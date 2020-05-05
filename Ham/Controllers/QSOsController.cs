@@ -1,36 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Ham.DAL;
 using Ham.Lib.Models;
 
 namespace Ham.Controllers
 {
-    public class QSOesController : Controller
+    public class QSOsController : Controller
     {
         private HamContext db = new HamContext();
 
-        // GET: QSOes
+        // GET: QSOs
         public async Task<ActionResult> Index()
         {
-            var qSOes = db.QSOes.Include(q => q.CallSign).Include(q => q.Contact).Include(q => q.Frequency).Include(q => q.Station);
-            return View(await qSOes.ToListAsync());
+            var QSOs = db.QSOs.Include(q => q.Contact).Include(q => q.Frequency);
+            return View(await QSOs.ToListAsync());
         }
 
-        // GET: QSOes/Details/5
+        // GET: QSOs/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            QSO qSO = await db.QSOes.FindAsync(id);
+            QSO qSO = await db.QSOs.FindAsync(id);
             if (qSO == null)
             {
                 return HttpNotFound();
@@ -38,7 +33,7 @@ namespace Ham.Controllers
             return View(qSO);
         }
 
-        // GET: QSOes/Create
+        // GET: QSOs/Create
         public ActionResult Create()
         {
             ViewBag.CallSignID = new SelectList(db.CallSigns, "ID", "Name");
@@ -48,52 +43,48 @@ namespace Ham.Controllers
             return View();
         }
 
-        // POST: QSOes/Create
+        // POST: QSOs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ContactID,StationID,CallSignID,FrequencyID")] QSO qSO)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Note,ContactID,StationID,CallSignID,FrequencyID")] QSO qSO)
         {
             if (ModelState.IsValid)
             {
-                db.QSOes.Add(qSO);
+                db.QSOs.Add(qSO);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CallSignID = new SelectList(db.CallSigns, "ID", "Name", qSO.CallSignID);
-            ViewBag.ContactID = new SelectList(db.Contacts, "ID", "Name", qSO.ContactID);
-            ViewBag.FrequencyID = new SelectList(db.Frequencies, "ID", "Name", qSO.FrequencyID);
-            ViewBag.StationID = new SelectList(db.Stations, "ID", "Note", qSO.StationID);
+            ViewBag.CallSignID = new SelectList(db.CallSigns, "ID", "Name");
+            ViewBag.ContactID = new SelectList(db.Contacts, "ID", "Name");
+            ViewBag.FrequencyID = new SelectList(db.Frequencies, "ID", "Name");
+            ViewBag.StationID = new SelectList(db.Stations, "ID", "Note");
             return View(qSO);
         }
 
-        // GET: QSOes/Edit/5
+        // GET: QSOs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            QSO qSO = await db.QSOes.FindAsync(id);
+            QSO qSO = await db.QSOs.FindAsync(id);
             if (qSO == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.CallSignID = new SelectList(db.CallSigns, "ID", "Name", qSO.CallSignID);
-            ViewBag.ContactID = new SelectList(db.Contacts, "ID", "Name", qSO.ContactID);
-            ViewBag.FrequencyID = new SelectList(db.Frequencies, "ID", "Name", qSO.FrequencyID);
-            ViewBag.StationID = new SelectList(db.Stations, "ID", "Note", qSO.StationID);
             return View(qSO);
         }
 
-        // POST: QSOes/Edit/5
+        // POST: QSOs/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ContactID,StationID,CallSignID,FrequencyID")] QSO qSO)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Note,ContactID,StationID,CallSignID,FrequencyID")] QSO qSO)
         {
             if (ModelState.IsValid)
             {
@@ -101,21 +92,20 @@ namespace Ham.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.CallSignID = new SelectList(db.CallSigns, "ID", "Name", qSO.CallSignID);
             ViewBag.ContactID = new SelectList(db.Contacts, "ID", "Name", qSO.ContactID);
             ViewBag.FrequencyID = new SelectList(db.Frequencies, "ID", "Name", qSO.FrequencyID);
-            ViewBag.StationID = new SelectList(db.Stations, "ID", "Note", qSO.StationID);
+
             return View(qSO);
         }
 
-        // GET: QSOes/Delete/5
+        // GET: QSOs/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            QSO qSO = await db.QSOes.FindAsync(id);
+            QSO qSO = await db.QSOs.FindAsync(id);
             if (qSO == null)
             {
                 return HttpNotFound();
@@ -123,13 +113,13 @@ namespace Ham.Controllers
             return View(qSO);
         }
 
-        // POST: QSOes/Delete/5
+        // POST: QSOs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            QSO qSO = await db.QSOes.FindAsync(id);
-            db.QSOes.Remove(qSO);
+            QSO qSO = await db.QSOs.FindAsync(id);
+            db.QSOs.Remove(qSO);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
