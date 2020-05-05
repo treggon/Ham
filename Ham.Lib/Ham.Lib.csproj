@@ -50,8 +50,10 @@
   <ItemGroup>
     <Compile Include="Models\CallSign.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Frequency.cs" />
+    <Compile Include="Models\QSO.cs" />
     <Compile Include="Models\Station.cs" />
-    <Compile Include="Models\Type.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

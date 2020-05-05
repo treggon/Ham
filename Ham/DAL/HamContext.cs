@@ -12,9 +12,12 @@ namespace Ham.DAL
         }
 
         public DbSet<Contact> Contacts { get; set; }
-        public DbSet<CallSign> CallSign { get; set; }
-        public DbSet<Station> Station { get; set; }
-        public DbSet<Type> Type { get; set; }
+        public DbSet<CallSign> CallSigns { get; set; }
+        public DbSet<Station> Stations { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Frequency> Frequencies { get; set; }
+
+        public DbSet<QSO> QSOes { get; set; }
     }
 }

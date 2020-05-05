@@ -1,5 +1,6 @@
 namespace Ham.Migrations
 {
+    using Ham.Lib.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +28,19 @@ namespace Ham.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            context.Categories.AddOrUpdate(
+                p => p.Name,
+                new Category { Name = "Station" }
+                );
+
+            context.CallSigns.AddOrUpdate(
+                p => p.Name,
+                new CallSign { Name = "KJ6RMP", CategoryID = 1}
+                );
+
+
+
         }
     }
 }

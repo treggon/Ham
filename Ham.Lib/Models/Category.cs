@@ -2,11 +2,11 @@
 
 namespace Ham.Lib.Models
 {
-    public class Type
+    public class Category
     {
         [Key]
         public int ID { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
 
     }
 }

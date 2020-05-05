@@ -1,0 +1,50 @@
+﻿@model Ham.Lib.Models.QSO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>QSO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CallSign.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CallSign.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contact.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Frequency.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Frequency.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Station.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Station.Note)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
